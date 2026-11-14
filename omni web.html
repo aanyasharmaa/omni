@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Omni stamp card</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#F4F7F6;--surface:#FFFFFF;--ink:#03313D;--muted:#4A6670;--line:#D5E0E2;--soft:#E4EDEE;
+  --teal:#03313D;--teal-ink:#F4F7F6;--stamp:#FF8210;--stamp-text:#A94700;--on-accent:#03313D;--ok:#1B7A3D;--bad:#B3261E;
+  --head:"Bricolage Grotesque","Trebuchet MS",sans-serif;--body:"Figtree","Segoe UI",Arial,sans-serif;
+  color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#021F27;--surface:#03313D;--ink:#F4F7F6;--muted:#A9C0C6;--line:#1D4A58;--soft:#0A4252;
+  --teal:#0B5368;--teal-ink:#F4F7F6;--stamp:#FF8210;--stamp-text:#FF9F4D;--on-accent:#03313D;--ok:#5ED28A;--bad:#FF8A80;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#021F27;--surface:#03313D;--ink:#F4F7F6;--muted:#A9C0C6;--line:#1D4A58;--soft:#0A4252;
+  --teal:#0B5368;--teal-ink:#F4F7F6;--stamp:#FF8210;--stamp-text:#FF9F4D;--on-accent:#03313D;--ok:#5ED28A;--bad:#FF8A80;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--body)}
+main{max-width:600px;margin:0 auto;padding:16px 16px 48px}
+h1,h2,h3{font-family:var(--head);margin:0;line-height:1.15}
+h2{font-size:1.25rem;margin-bottom:6px}
+.top{display:flex;align-items:center;gap:10px;padding:6px 0 14px}
+.brand{font:700 1.5rem var(--head);letter-spacing:-.01em}
+.shop{margin-left:auto;color:var(--muted);font-size:.9rem;text-align:right}
+.tabs{display:flex;gap:6px;background:var(--soft);padding:4px;border-radius:12px;margin-bottom:14px}
+.tabs button{flex:1;border:0;background:transparent;color:var(--muted);font:600 .95rem var(--body);padding:10px;border-radius:9px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--teal);color:var(--teal-ink)}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:14px}
+.hero{background:var(--teal);color:var(--teal-ink);border:0;border-bottom:6px solid var(--stamp)}
+.hero h2{font-size:1.5rem}
+.hero p{margin:0;opacity:.92}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0 10px}
+.slot{aspect-ratio:1;border-radius:50%;border:2px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;font:600 .9rem var(--head);color:var(--muted)}
+.slot.on{border:4px double var(--stamp);color:var(--stamp-text);transform:rotate(-8deg);background:var(--soft)}
+.slot.on small{font:500 .6rem var(--body);max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.slot.pop{animation:pop .35s ease-out}
+@keyframes pop{from{transform:scale(1.5) rotate(10deg);opacity:.2}to{transform:scale(1) rotate(-8deg);opacity:1}}
+@media (prefers-reduced-motion:reduce){.slot.pop{animation:none}}
+.bar{height:8px;background:var(--soft);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--stamp);transition:width .3s}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:1rem var(--body)}
+textarea{min-height:76px;resize:vertical}
+.btn{margin-top:12px;border:0;border-radius:10px;background:var(--stamp);color:var(--on-accent);font:600 1rem var(--body);padding:12px 16px;cursor:pointer}
+.btn.alt{background:var(--soft);color:var(--ink)}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:6px 14px;font:500 .9rem var(--body);cursor:pointer;margin:4px 6px 0 0}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>div{flex:1;min-width:120px}
+.msg{min-height:1.5em;margin:10px 0 0;font-weight:500}.ok{color:var(--ok)}.bad{color:var(--bad)}
+.note{color:var(--muted);font-size:.85rem}
+.code{font:700 2.4rem var(--head);letter-spacing:.2em;text-align:center;color:var(--stamp-text);margin:8px 0}
+.alert{border:2px solid var(--stamp);background:var(--soft);border-radius:12px;padding:12px 14px;margin-bottom:14px;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+.stats b{display:block;font:700 1.5rem var(--head)}.stats span{color:var(--muted);font-size:.78rem}
+.wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+.tag{padding:2px 8px;border-radius:99px;background:var(--soft);font-size:.78rem}.tag.used{color:var(--stamp-text)}
+.sw{display:flex;align-items:center;gap:8px;margin-top:12px;font-weight:500}.sw input{width:auto}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <svg width="34" height="34" viewBox="0 0 40 40" role="img" aria-label="Omni logo"><circle cx="20" cy="20" r="17" fill="none" stroke="var(--stamp)" stroke-width="3"/><circle cx="20" cy="20" r="11" fill="none" stroke="var(--teal)" stroke-width="3"/><circle cx="20" cy="20" r="4" fill="var(--stamp)"/></svg>
+    <span class="brand">Omni</span><span class="shop" id="shopname"></span>
+  </div>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="t-c" aria-selected="true">Customer app</button>
+    <button role="tab" id="t-s" aria-selected="false">Café dashboard</button>
+  </div>
+
+  <section id="p-c">
+    <div class="card" id="signup">
+      <h2>Start your stamp card</h2>
+      <p class="note" style="margin:0">Just a first name. No app, no fee, and your rewards never expire.</p>
+      <label for="nm">First name</label><input id="nm" autocomplete="given-name" placeholder="Example: Riya">
+      <button class="btn" id="join">Get my card</button><p class="msg" id="jmsg" aria-live="polite"></p>
+    </div>
+    <div id="card" hidden>
+      <div class="alert" id="notice" hidden>Reminder: you have a free coffee waiting!</div>
+      <div class="card hero"><h2 id="hi"></h2><p>5 stamps = 1 free small coffee. Rewards never expire.</p></div>
+      <div class="card">
+        <div class="grid" id="grid"></div><div class="bar"><i id="fill"></i></div>
+        <p class="note" id="cnt" style="margin:6px 0 0"></p>
+      </div>
+      <div class="card" id="addbox">
+        <h2>Add a stamp</h2><p class="note" style="margin:0">Type the invoice number printed on your bill. The café checks it against its own bill list.</p>
+        <label for="inv">Invoice number</label><input id="inv" autocapitalize="characters" autocomplete="off" placeholder="Example: INV-1001">
+        <button class="btn" id="add">Add stamp</button><p class="msg" id="msg" aria-live="polite"></p>
+        <p class="note">Try INV-1001 (works), INV-1003 (below minimum) or a made-up number (not found).</p>
+      </div>
+      <div class="card" id="ready" hidden><h2>Your free coffee is ready</h2><p style="margin:0">Tap Redeem at the counter. The café confirms it.</p><button class="btn" id="redeem">Redeem reward</button></div>
+      <div class="card" id="pend" hidden><h2>Show this code to the staff</h2><div class="code" id="code"></div><p class="note" style="margin:0;text-align:center">The café confirms it in the Café dashboard tab.</p></div>
+      <div class="card"><label class="sw"><input type="checkbox" id="remind"> Remind me once when my reward is ready</label><p class="note" style="margin:4px 0 0">Optional. One message only, never repeated.</p></div>
+    </div>
+    <div id="othersWrap" class="card" hidden><h2>Customers on this device</h2><div id="others"></div><button class="btn alt" id="newc">Add another customer</button></div>
+  </section>
+
+  <section id="p-s" hidden>
+    <div class="card"><div class="stats">
+      <div><b id="s1">0</b><span>Bills logged</span></div><div><b id="s2">0</b><span>Stamps given</span></div>
+      <div><b id="s3">0</b><span>Repeat customers</span></div><div><b id="s4">0</b><span>Rewards redeemed</span></div></div></div>
+    <div class="card" id="pcard" hidden><h2>Rewards to confirm</h2><div id="plist"></div></div>
+    <div class="card">
+      <h2>Log a bill</h2>
+      <div class="row"><div><label for="cinv">Invoice number</label><input id="cinv" autocapitalize="characters" placeholder="INV-1005"></div>
+      <div><label for="camt">Amount (₹)</label><input id="camt" type="number" min="0" inputmode="numeric" placeholder="150"></div></div>
+      <div class="row"><button class="btn" id="log">Log bill</button><button class="btn alt" id="sample">Add sample bill</button></div>
+      <p class="msg" id="cmsg" aria-live="polite"></p>
+      <label for="bulk">Or paste today’s bill list (one per line: number, amount)</label>
+      <textarea id="bulk" placeholder="INV-1010, 180&#10;INV-1011, 95"></textarea>
+      <button class="btn alt" id="bulkbtn">Add pasted bills</button>
+    </div>
+    <div class="card"><h2>Settings</h2>
+      <label for="sn">Café name</label><input id="sn">
+      <label for="min">Minimum bill for a stamp (₹)</label><input id="min" type="number" min="0" inputmode="numeric"></div>
+    <div class="card"><h2>Customers</h2><div class="wrap"><table><thead><tr><th>Name</th><th>Stamps</th><th>Rewards</th></tr></thead><tbody id="crow"></tbody></table></div></div>
+    <div class="card"><h2>Bills</h2><div class="wrap"><table><thead><tr><th>Invoice</th><th>Amount</th><th>Status</th></tr></thead><tbody id="rows"></tbody></table></div>
+      <button class="btn alt" id="reset">Reset demo</button></div>
+  </section>
+</main>
+
+<script>
+(function(){
+var K="omni-demo-v2",G=5,S;
+function seed(){return{shop:"Bean There Café",min:100,cur:null,n:1,cust:[],bills:[
+ {no:"INV-1001",amt:180,used:0},{no:"INV-1002",amt:240,used:0},{no:"INV-1003",amt:60,used:0},{no:"INV-1004",amt:150,used:0}]};}
+try{S=JSON.parse(localStorage.getItem(K));}catch(e){S=null;}
+if(!S||!S.cust)S=seed();
+function save(){try{localStorage.setItem(K,JSON.stringify(S));}catch(e){}}
+var $=function(i){return document.getElementById(i);};
+function me(){return S.cust.filter(function(c){return c.id===S.cur;})[0];}
+function norm(v){return String(v||"").trim().toUpperCase().replace(/\s+/g,"");}
+function say(id,t,c){var e=$(id);e.textContent=t;e.className="msg "+(c||"");}
+var pop=-1;
+
+function render(){
+  $("shopname").textContent=S.shop; $("sn").value=S.shop; $("min").value=S.min;
+  var c=me(); $("signup").hidden=!!c; $("card").hidden=!c;
+  var o=$("others"); o.innerHTML="";
+  S.cust.forEach(function(x){var b=document.createElement("button");b.className="chip";b.textContent=x.name+(x.id===S.cur?" (current)":"");b.onclick=function(){S.cur=x.id;save();render();};o.appendChild(b);});
+  $("othersWrap").hidden=!S.cust.length;
+  if(c){
+    var n=c.stamps.length,rdy=n>=G; $("hi").textContent="Hi, "+c.name;
+    var g=$("grid"); g.innerHTML="";
+    for(var i=0;i<G;i++){var d=document.createElement("div");d.className="slot";
+      if(i<n){d.className+=" on"+(i===pop?" pop":"");d.innerHTML=(i+1)+"<small></small>";d.querySelector("small").textContent=c.stamps[i];}else d.textContent=i+1;
+      g.appendChild(d);}
+    $("fill").style.width=(n/G*100)+"%"; $("cnt").textContent=n+" of "+G+" stamps"+(rdy?". Reward ready.":". "+(G-n)+" to go.");
+    $("addbox").hidden=rdy; $("ready").hidden=!(rdy&&!c.pending); $("pend").hidden=!c.pending; $("code").textContent=c.pending||"";
+    $("notice").hidden=!(c.remind&&rdy); $("remind").checked=!!c.remind;
+  }
+  var given=0,rep=0,red=0,pl=$("plist");pl.innerHTML="";
+  S.cust.forEach(function(x){given+=x.given;red+=x.redeemed;if(x.given>=2)rep++;
+    if(x.pending){var r=document.createElement("div");r.className="row";r.style.alignItems="center";
+      r.innerHTML="<div></div><button class='btn' style='margin:0'>Confirm</button>";r.firstChild.textContent=x.name+": code "+x.pending;
+      r.lastChild.onclick=function(){x.pending=null;x.stamps=[];x.redeemed++;save();render();};pl.appendChild(r);}});
+  $("pcard").hidden=!pl.children.length;
+  $("s1").textContent=S.bills.length;$("s2").textContent=given;$("s3").textContent=rep;$("s4").textContent=red;
+  var cr=$("crow");cr.innerHTML="";S.cust.forEach(function(x){var t=document.createElement("tr");t.innerHTML="<td></td><td></td><td></td>";
+    t.children[0].textContent=x.name;t.children[1].textContent=x.stamps.length+" of "+G;t.children[2].textContent=x.redeemed;cr.appendChild(t);});
+  var rw=$("rows");rw.innerHTML="";S.bills.slice().reverse().forEach(function(b){var t=document.createElement("tr");
+    t.innerHTML="<td></td><td></td><td><span class='tag"+(b.used?" used":"")+"'>"+(b.used?"Stamped":"Unused")+"</span></td>";
+    t.children[0].textContent=b.no;t.children[1].textContent="₹"+b.amt;rw.appendChild(t);});
+}
+
+$("join").onclick=function(){var nm=$("nm").value.trim().slice(0,20);
+  if(!nm){say("jmsg","Please enter your first name.","bad");return;}
+  var c={id:"c"+(S.n++),name:nm,stamps:[],given:0,redeemed:0,pending:null,remind:false};
+  S.cust.push(c);S.cur=c.id;$("nm").value="";pop=-1;say("jmsg","");save();render();};
+$("newc").onclick=function(){S.cur=null;render();};
+
+$("add").onclick=function(){var c=me(),no=norm($("inv").value);
+  if(!no){say("msg","Enter the invoice number from your bill.","bad");return;}
+  var b=S.bills.filter(function(x){return x.no===no;})[0];
+  if(!b){say("msg","We couldn’t find that invoice. Check the number on your bill, or ask the café to log it.","bad");return;}
+  if(b.used){say("msg","This invoice has already been stamped.","bad");return;}
+  if(b.amt<S.min){say("msg","This bill is below the ₹"+S.min+" minimum for a stamp.","bad");return;}
+  b.used=1;c.stamps.push(no);c.given++;pop=c.stamps.length-1;save();render();$("inv").value="";
+  say("msg",c.stamps.length>=G?"Stamp added. Your free coffee is ready.":"Stamp added. "+(G-c.stamps.length)+" to go.","ok");};
+$("inv").addEventListener("keydown",function(e){if(e.key==="Enter")$("add").click();});
+$("redeem").onclick=function(){var c=me();c.pending=String(1000+Math.floor(Math.random()*9000));save();render();};
+$("remind").onchange=function(){me().remind=this.checked;save();render();};
+
+function addBill(no,amt){if(S.bills.some(function(x){return x.no===no;}))return false;S.bills.push({no:no,amt:amt,used:0});return true;}
+$("log").onclick=function(){var no=norm($("cinv").value),amt=parseInt($("camt").value,10);
+  if(!no||isNaN(amt)||amt<0){say("cmsg","Enter an invoice number and an amount.","bad");return;}
+  if(!addBill(no,amt)){say("cmsg","That invoice number is already logged.","bad");return;}
+  save();render();$("cinv").value="";$("camt").value="";say("cmsg","Bill "+no+" logged.","ok");};
+$("sample").onclick=function(){var no;do{no="INV-"+(1005+Math.floor(Math.random()*8000));}while(S.bills.some(function(x){return x.no===no;}));
+  addBill(no,150+Math.floor(Math.random()*10)*10);save();render();say("cmsg","Sample bill "+no+" added.","ok");};
+$("bulkbtn").onclick=function(){var add=0,skip=0;
+  $("bulk").value.split("\n").forEach(function(l){var m=l.match(/^\s*([A-Za-z0-9-]+)[\s,]+(\d+)/);if(!m)return;(addBill(norm(m[1]),parseInt(m[2],10))?add++:skip++);});
+  save();render();$("bulk").value="";say("cmsg",add+" bills added"+(skip?", "+skip+" skipped (duplicate or unreadable).":"."),add?"ok":"bad");};
+$("sn").onchange=function(){S.shop=this.value.trim()||"Bean There Café";save();render();};
+$("min").onchange=function(){var v=parseInt(this.value,10);S.min=isNaN(v)||v<0?0:v;save();render();};
+$("reset").onclick=function(){S=seed();pop=-1;save();render();};
+
+function tab(c){$("p-c").hidden=!c;$("p-s").hidden=c;$("t-c").setAttribute("aria-selected",c);$("t-s").setAttribute("aria-selected",!c);}
+$("t-c").onclick=function(){tab(true);};$("t-s").onclick=function(){tab(false);};
+render();
+})();
+</script>
+</body>
+</html>
